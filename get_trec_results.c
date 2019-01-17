@@ -246,7 +246,7 @@ parse_results_line (char **start_ptr, char **qid_ptr, char **docno_ptr,
     while (*ptr != '\n' && isspace (*ptr)) ptr++;
     *sim_ptr = ptr;
     while (! isspace (*ptr)) ptr++;
-    if (*ptr == '\n')return (UNDEF);
+    if ((*ptr == '\n')&&(!threeCol))return (UNDEF);
     *ptr++ = '\0';
     if (!threeCol){
         /* Get run_id */
