@@ -229,7 +229,7 @@ important future research problem.\n\
 ", 
  te_get_qrels_prefs, te_get_qrels_prefs_cleanup},
 };
-int te_num_rel_info_format =
+long te_num_rel_info_format =
     sizeof (te_rel_info_format)/sizeof (te_rel_info_format[0]);
 
 RESULTS_FILE_FORMAT te_results_format[] = {
@@ -250,7 +250,7 @@ Lines may contain fields after the run_id; they are ignored. \n\
 ",
      te_get_trec_results, te_get_trec_results_cleanup},
 };
-int te_num_results_format =
+long te_num_results_format =
     sizeof (te_results_format)/sizeof (te_results_format[0]);
 
 int te_form_res_rels_cleanup (), te_form_res_rels_jg_cleanup (),
@@ -280,7 +280,7 @@ FORM_INTER_PROCS te_form_inter_procs[] = {
      te_form_pref_counts_cleanup},
 };
 
-int te_num_form_inter_procs =
+long te_num_form_inter_procs =
     sizeof (te_form_inter_procs)/sizeof (te_form_inter_procs[0]);
 
 
