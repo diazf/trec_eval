@@ -254,11 +254,11 @@ parse_results_line (char **start_ptr, char **qid_ptr, char **docno_ptr,
         if (*ptr == '\n') return (UNDEF);
         *run_id_ptr = ptr;
         while (! isspace (*ptr)) ptr++;
-        if (*ptr != '\n') {
     }
-	/* Skip over rest of line */
-	*ptr++ = '\0';
-	while (*ptr != '\n') ptr++;
+    if (*ptr != '\n') {
+    	/* Skip over rest of line */
+    	*ptr++ = '\0';
+    	while (*ptr != '\n') ptr++;
     }
     *ptr++ = '\0';
     *start_ptr = ptr;
