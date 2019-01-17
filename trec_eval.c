@@ -180,6 +180,7 @@ char *argv[];
     epi.max_num_docs_per_topic = MAXLONG;
     epi.rel_info_format = "qrels";
     epi.results_format = "trec_results";
+    epi.threeCol = false;
     epi.zscore_flag = 0;
     if (NULL == (epi.meas_arg = Malloc (argc+1, MEAS_ARG)))
 	exit (1);
@@ -206,7 +207,7 @@ char *argv[];
 	    {"Zscore", 1, 0, 'Z'},
 	    {0, 0, 0, 0},
 	};
-	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:", 
+	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:3", 
 			 long_options, &option_index);
 	if (c == -1)
 	    break;
@@ -254,6 +255,9 @@ char *argv[];
 	    break;
 	case 'T':
             epi.results_format = optarg;
+	    break;
+	case '3':
+            epi.threeCol = true;
 	    break;
 	case 'o':
 	    /* Obsolete, no longer supported */

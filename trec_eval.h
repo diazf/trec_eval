@@ -17,6 +17,8 @@ typedef struct {
 	char *parameters;
 } MEAS_ARG;
     
+typedef enum { false, true } bool;
+
 typedef struct {
     long query_flag;              /* 0. If set, evaluation output will be
                                      printed for each query, in addition
@@ -43,6 +45,7 @@ typedef struct {
     long max_num_docs_per_topic;  /* MAXLONG. evaluate only this many docs */
     char *rel_info_format;        /* "qrels", format of input rel_info_file */
     char *results_format;         /* "trec_results"  format of input results*/
+    bool threeCol;                /* "trec_results"  format of input results*/
     long zscore_flag;             /* 0. If set, output Z score for measure
 				     instead of raw score */
     /* List of command line arguments giving individual measure parameters.

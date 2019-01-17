@@ -40,7 +40,7 @@ typedef struct {
 
 static int parse_results_line (char **start_ptr, char **qid_ptr,
 			       char **docno_ptr, char **sim_ptr,
-			       char **run_id_ptr);
+			       char **run_id_ptr, bool threeCol);
 
 static int comp_lines_qid_docno ();
 
@@ -141,7 +141,7 @@ te_get_trec_results (EPI *epi, char *text_results_file,
 	    continue;
 	}
 	if (UNDEF == parse_results_line (&ptr, &line_ptr->qid,&line_ptr->docno,
-					 &line_ptr->sim, &run_id_ptr)) {
+					 &line_ptr->sim, &run_id_ptr, epi->threeCol)) {
 	    fprintf (stderr, "trec_eval.get_results: Malformed line %ld\n",
 		     (long) (line_ptr - lines + 1));
 	    return (UNDEF);
@@ -188,7 +188,7 @@ te_get_trec_results (EPI *epi, char *text_results_file,
 	    current_qid = lines[i].qid;
 	    text_info_ptr->text_results = text_results_ptr;
 	    *q_results_ptr =
-		(RESULTS) {current_qid, run_id_ptr, "trec_results",
+		(RESULTS) {current_qid, (epi->threeCol) ? "run" : run_id_ptr, "trec_results",
 			   text_info_ptr};
 	}
 	text_results_ptr->docno = lines[i].docno;
@@ -215,7 +215,7 @@ static int comp_lines_qid_docno (LINES *ptr1, LINES *ptr2)
 
 static int
 parse_results_line (char **start_ptr, char **qid_ptr, char **docno_ptr,
-		    char **sim_ptr, char **run_id_ptr)
+		    char **sim_ptr, char **run_id_ptr, bool threeCol)
 {
     char *ptr = *start_ptr;
 
@@ -224,32 +224,38 @@ parse_results_line (char **start_ptr, char **qid_ptr, char **docno_ptr,
     while (! isspace (*ptr)) ptr++;
     if (*ptr == '\n')  return (UNDEF);
     *ptr++ = '\0';
-    /* Skip iter */
-    while (*ptr != '\n' && isspace (*ptr)) ptr++;
-    while (! isspace (*ptr)) ptr++;
-    if (*ptr++ == '\n') return (UNDEF);
+    if (!threeCol){
+        /* Skip iter */
+        while (*ptr != '\n' && isspace (*ptr)) ptr++;
+        while (! isspace (*ptr)) ptr++;
+        if (*ptr++ == '\n') return (UNDEF);
+    }
     /* Get docno */
     while (*ptr != '\n' && isspace (*ptr)) ptr++;
     *docno_ptr = ptr;
     while (! isspace (*ptr)) ptr++;
     if (*ptr == '\n') return (UNDEF);
     *ptr++ = '\0';
-    /* Skip rank */
-    while (*ptr != '\n' && isspace (*ptr)) ptr++;
-    while (! isspace (*ptr)) ptr++;
-    if (*ptr++ == '\n') return (UNDEF);
+    if (!threeCol){
+        /* Skip rank */
+        while (*ptr != '\n' && isspace (*ptr)) ptr++;
+        while (! isspace (*ptr)) ptr++;
+        if (*ptr++ == '\n') return (UNDEF);
+    }
     /* Get sim */
     while (*ptr != '\n' && isspace (*ptr)) ptr++;
     *sim_ptr = ptr;
     while (! isspace (*ptr)) ptr++;
     if (*ptr == '\n')return (UNDEF);
     *ptr++ = '\0';
-    /* Get run_id */
-    while (*ptr != '\n' && isspace (*ptr)) ptr++;
-    if (*ptr == '\n') return (UNDEF);
-    *run_id_ptr = ptr;
-    while (! isspace (*ptr)) ptr++;
-    if (*ptr != '\n') {
+    if (!threeCol){
+        /* Get run_id */
+        while (*ptr != '\n' && isspace (*ptr)) ptr++;
+        if (*ptr == '\n') return (UNDEF);
+        *run_id_ptr = ptr;
+        while (! isspace (*ptr)) ptr++;
+        if (*ptr != '\n') {
+    }
 	/* Skip over rest of line */
 	*ptr++ = '\0';
 	while (*ptr != '\n') ptr++;
