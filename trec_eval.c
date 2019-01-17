@@ -78,6 +78,7 @@ normally ever used.   \n\
  -T format: the top results_file is assumed to be in format 'format'. Current\n\
     values for 'format' include 'trec_results'. Note not all measures can be\n\
     calculated with all formats.\n\
+ -3: use three column format (qid,did,sim).\n\
  --Zscore Zmean_file:\n\
  -Z Zmean_file: Instead of printing the raw score for each measure, print\n\
     a Z score instead. The score printed will be the deviation from the mean\n\
