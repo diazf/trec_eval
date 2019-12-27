@@ -179,6 +179,7 @@ char *argv[];
     epi.num_docs_in_coll = 0;
     epi.relevance_level = 1;
     epi.max_num_docs_per_topic = MAXLONG;
+    epi.rbp_p = 0.8;
     epi.rel_info_format = "qrels";
     epi.results_format = "trec_results";
     epi.threeCol = false;
@@ -229,6 +230,9 @@ char *argv[];
 		exit (1);
 	    }
 	    measure_marked_flag++;
+	    break;
+	case 'p':		
+	    epi.rbp_p = atof (optarg);
 	    break;
 	case 'c':		
 	    epi.average_complete_flag++;
