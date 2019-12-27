@@ -209,7 +209,7 @@ char *argv[];
 	    {"Zscore", 1, 0, 'Z'},
 	    {0, 0, 0, 0},
 	};
-	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:3", 
+	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:3p:", 
 			 long_options, &option_index);
 	if (c == -1)
 	    break;
