@@ -180,6 +180,7 @@ char *argv[];
     epi.relevance_level = 1;
     epi.max_num_docs_per_topic = MAXLONG;
     epi.rbp_p = 0.8;
+    epi.err_R = 0.9;
     epi.rel_info_format = "qrels";
     epi.results_format = "trec_results";
     epi.threeCol = false;
@@ -209,7 +210,7 @@ char *argv[];
 	    {"Zscore", 1, 0, 'Z'},
 	    {0, 0, 0, 0},
 	};
-	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:3p:", 
+	c = getopt_long (argc, argv, "hvqm:cl:nD:JN:M:R:T:oZ:3p:r:", 
 			 long_options, &option_index);
 	if (c == -1)
 	    break;
@@ -233,6 +234,9 @@ char *argv[];
 	    break;
 	case 'p':		
 	    epi.rbp_p = atof (optarg);
+	    break;
+	case 'r':		
+	    epi.err_R = atof (optarg);
 	    break;
 	case 'c':		
 	    epi.average_complete_flag++;
