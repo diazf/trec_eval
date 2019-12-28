@@ -71,7 +71,9 @@ extern TREC_MEAS te_meas_recip_rank;
 extern TREC_MEAS te_meas_recip_rank_cut;
 extern TREC_MEAS te_meas_rbp_cut;
 extern TREC_MEAS te_meas_err_cut;
+extern TREC_MEAS te_meas_err;
 extern TREC_MEAS te_meas_gerr_cut;
+extern TREC_MEAS te_meas_gerr;
 extern TREC_MEAS te_meas_iprec_at_recall;
 extern TREC_MEAS te_meas_P;
 extern TREC_MEAS te_meas_relstring;
@@ -129,7 +131,9 @@ TREC_MEAS *te_trec_measures[] = {
     &te_meas_recip_rank_cut,
     &te_meas_rbp_cut,
     &te_meas_err_cut,
+    &te_meas_err,
     &te_meas_gerr_cut,
+    &te_meas_gerr,
     &te_meas_iprec_at_recall,
     &te_meas_P,
     &te_meas_relstring,
@@ -211,7 +215,7 @@ static char *qrels_jg_names[] = {
 static char *qrels_fd_names[] = {
   "runid", "num_q", "num_ret", "num_rel", "num_rel_ret", "map", "gm_map", 
   "Rprec", "bpref", "recip_rank", "iprec_at_recall", "P", 
-  "recall","ndcg","ndcg_cut","recip_rank_cut", "rbp_cut", "err_cut", "gerr_cut",
+  "recall","ndcg","ndcg_cut","recip_rank_cut", "rbp_cut", "err_cut", "err", "gerr_cut", "gerr", 
 	NULL};
 
 TREC_MEASURE_NICKNAMES te_trec_measure_nicknames[] = {
