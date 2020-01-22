@@ -57,7 +57,12 @@ te_calc_gerr_cut (const EPI *epi, const REL_INFO *rel_info,
     p = 1.0;
     for (i = 0; i < res_rels.num_ret; i++) {
         if (i == cutoffs[cutoff_index]){
-            eval->values[tm->eval_index + cutoff_index].value = sum;
+            int effectiveMaxRel = res_rels.num_rel;
+            if (i < res_rels.num_rel){
+                effectiveMaxRel = i;
+            }
+            double norm = epi->err_R * ( (1.0 - pow((epi->rbp_p * (1.0 - epi->err_R)), effectiveMaxRel)) / (1.0 - (epi->rbp_p * (1.0 - epi->err_R))) );
+            eval->values[tm->eval_index + cutoff_index].value = sum / norm;
             if (++cutoff_index == tm->meas_params->num_params)
                 break;
         }
@@ -70,7 +75,14 @@ te_calc_gerr_cut (const EPI *epi, const REL_INFO *rel_info,
     }
     /* calculate values for those cutoffs not achieved */
     while (cutoff_index < tm->meas_params->num_params) {
-        eval->values[tm->eval_index + cutoff_index].value = sum;
+        int i = cutoffs[cutoff_index];
+        int effectiveMaxRel = res_rels.num_rel;
+        if (i < res_rels.num_rel){
+            effectiveMaxRel = i;
+        }
+        double norm = epi->err_R * ( (1.0 - pow((epi->rbp_p * (1.0 - epi->err_R)), effectiveMaxRel)) / (1.0 - (epi->rbp_p * (1.0 - epi->err_R))) );
+        
+        eval->values[tm->eval_index + cutoff_index].value = sum / norm;
         cutoff_index++;
     }
 
