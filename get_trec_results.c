@@ -72,7 +72,7 @@ te_get_trec_results(EPI * epi, char *text_results_file,
     TEXT_RESULTS *text_results_ptr;
 
     /* mmap entire file into memory and copy it into writable memory */
-    if (text_results_file[0] != '-'){
+    if (text_results_file[0] != '-') {
         if (-1 == (fd = open(text_results_file, 0)) ||
             0 >= (size = lseek(fd, 0L, 2)) ||
             (char *) -1 == (orig_buf = (char *) mmap(0,
@@ -97,13 +97,13 @@ te_get_trec_results(EPI * epi, char *text_results_file,
                     text_results_file);
             return (UNDEF);
         }
-    }else{
+    } else {
         size_t capacity = 4096;
         size = 0; 
         trec_results_buf = malloc(capacity * sizeof (char));
         char lineBuffer[MAXLINE];
-        while (fgets(lineBuffer,MAXLINE,stdin) != NULL){
-            for (int i = 0 ; i < strlen(lineBuffer) ; i++){
+        while (fgets(lineBuffer,MAXLINE,stdin) != NULL) {
+            for (int i = 0; i < strlen(lineBuffer); i++) {
                 trec_results_buf[size] = lineBuffer[i];
                 if (++size == capacity) {
                     long newcap = (capacity *= 2) * sizeof (char);
